@@ -1,9 +1,17 @@
 const app = require("express")();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
-const PORT = process.env.PORT || 8000;
-const cors = require("cors");
-app.use(cors());
+const server = require("http").createServer();
+const options={
+  cors:true,
+  origins:["https://kushagra1212.github.io/chat-app/"],
+ }
+const io = require("socket.io")(server,options);
+const PORT = process.env.PORT ||8000;
+
+
+
+ 
+
+
 const router = require("./routes/route");
 
 const {

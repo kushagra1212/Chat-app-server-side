@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8000;
 const cors = require("cors");
 app.use(cors());
 const router = require("./routes/route");
-
+createProxyMiddleware('/', { target: 'http:localhost:3000/chat-app', ws: true });
 const {
   getusers,
   getusersfromroom,

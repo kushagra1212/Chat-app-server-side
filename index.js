@@ -3,6 +3,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const PORT = process.env.PORT || 8000;
 const cors = require("cors");
+app.use(cors());
 const router = require("./routes/route");
 
 const {
@@ -12,7 +13,7 @@ const {
   adduser,
   removeuser,
 } = require("./users");
-app.use(cors());
+
 
 let x = Math.floor(Math.random() * 250);
 let y = Math.floor(Math.random() * 250);

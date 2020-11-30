@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8000;
 const cors = require("cors");
 app.use(cors());
 const router = require("./routes/route");
-createProxyMiddleware('/', { target: 'http:localhost:3000/chat-app', ws: true });
+
 const {
   getusers,
   getusersfromroom,
@@ -18,11 +18,7 @@ const {
 let x = Math.floor(Math.random() * 250);
 let y = Math.floor(Math.random() * 250);
 let z = Math.floor(Math.random() * 250);
-app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
- 
-  next();
-});
+
 app.use(router);
 
 io.on("connection", (socket) => {

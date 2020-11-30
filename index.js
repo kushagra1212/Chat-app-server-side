@@ -18,7 +18,11 @@ const {
 let x = Math.floor(Math.random() * 250);
 let y = Math.floor(Math.random() * 250);
 let z = Math.floor(Math.random() * 250);
-
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 app.use(router);
 
 io.on("connection", (socket) => {

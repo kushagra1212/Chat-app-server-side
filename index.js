@@ -21,7 +21,7 @@ let z = Math.floor(Math.random() * 250);
 app.use(router);
 
 io.on("connection", (socket) => {
-  console.log("someone has joined the chat");
+  
   socket.on("join", ({ name, room }) => {
     socket.emit("welcomerrormessage", `someone is already there`);
     x = Math.floor(Math.random() * 250);
@@ -34,6 +34,7 @@ io.on("connection", (socket) => {
       socket.emit("welcomemessage", {
         mass: `welcome to the chat ${us.name}`,
         rom: us.room,
+        name:us.name
       });
       socket
         .to(us.room)
@@ -62,15 +63,24 @@ io.on("connection", (socket) => {
       console.log("erorsaaa");
     }
   });
+  socket.on('getusers',(room)=>{
+    const us=getusersfromroom(room);
+console.log(us);
+    if(us) socket.emit('hereareusers',us);
+    else console.log("nothing hp")
+    
+  })
   socket.on("disconnect", async () => {
     const us = await getuser(socket.id);
-    removeuser({ name: us.name, room: us.room });
+    let afterremoveduser;
+    if(us)  afterremoveduser=removeuser(socket.id);
+    console.log(afterremoveduser)
     if (us) {
       socket
         .to(us.room)
         .broadcast.emit(
           "disconnectedfromallusers",
-          `${us.name} has left the chat`
+          {msg:`${us.name} has left the chat`,afterremoveduser:afterremoveduser}
         );
     }
   });

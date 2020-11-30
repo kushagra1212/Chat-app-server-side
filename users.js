@@ -1,6 +1,5 @@
-const users = [
-  { name: "kush", room: 1111 },
-  { name: "h", room: 1111 },
+let users = [
+  {id:1,name:"",room:22}
 ];
 
 const adduser = (id, name, room) => {
@@ -22,14 +21,15 @@ const getuser = (id) => {
     return null;
   }
 };
-const removeuser = ({ name, room }) => {
-  users.filter((us) => us.name !== name && us.room !== room);
+const removeuser = (socketid) => {
+  users=users.filter((us) => us.id!=socketid);
+  return users;
 };
-const getusersfromroom = ({ room }) => {
+const getusersfromroom = ( room) => {
   const roomusers = users.filter((use) => use.room == room);
   if (roomusers) return roomusers;
   else {
-    return { error: "no user found" };
+    return null;
   }
 };
 

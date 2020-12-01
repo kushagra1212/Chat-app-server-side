@@ -8,6 +8,10 @@ router.get('/',(req,res)=>
 
 
 });
+router.get('/favicon.ico',(req,res)=>
+{
+    res.send("ho")
+})
 
 
 module.exports=router;

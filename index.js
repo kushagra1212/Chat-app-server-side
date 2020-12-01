@@ -2,7 +2,7 @@ const app = require("express")();
 const server = require("http").createServer();
 const options={
   cors:true,
-  origins:["https://kushagra1212.github.io/chat-app/"],
+  origins:["https://kushagra1212.github.io/chat-app/","http://localhost:3000/"],
  }
 const io = require("socket.io")(server,options);
 const PORT = process.env.PORT ||8000;

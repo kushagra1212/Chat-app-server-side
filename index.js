@@ -1,15 +1,16 @@
-const app = require("express")();
+const express=require("express");
+const app = express();
 const server = require("http").createServer(app);
 const options={
   cors:true,
-  origins:["https://kushagra1212.github.io/chat-app/"],
+  origins:["https://kushagra1212.github.io/chat-app/"]
  }
 const io = require("socket.io")(server,options);
 const PORT = process.env.PORT ||8000;
 
 
 
- 
+ app.use(express.json())
 
 
 const router = require("./routes/route");
@@ -61,11 +62,14 @@ io.on("connection", (socket) => {
           mas: mas,
           name: us.name,
           bgcol: "rgb(" + x + "," + y + "," + z + ")",
+          room:us.room
+
         });
       socket.emit("onmyside", {
         mas: mas,
         name: us.name,
         bgcol: "rgb(" + x + "," + z + "," + y + ")",
+        room:us.room
       });
     } else {
       console.log(us);

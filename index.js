@@ -1,16 +1,28 @@
 const express=require("express");
 const app = express();
 const server = require("http").createServer(app);
+const mongoose=require("mongoose");
+require('dotenv').config();
+const DB_conn=process.env.DB_CONN;
 const options={
   cors:true,
-  origins:["https://kushagra1212.github.io/chat-app/"]
+  origins:[process.env.URL_CLI]
  }
+ const cors=require('cors');
 const io = require("socket.io")(server,options);
+const mongodb=DB_conn;
 const PORT = process.env.PORT ||8000;
+app.use(cors());
+mongoose.connect(mongodb,{ useNewUrlParser: true , useUnifiedTopology: true});
+const db=mongoose.connection;
+app.use(express.json())
+db.on('connected',()=>{
+  console.log("connected to the db");
+  server.listen(PORT, () => console.log(`runnig on port ${PORT}`));
+})
 
 
 
- app.use(express.json())
 
 
 const router = require("./routes/route");
@@ -99,4 +111,4 @@ console.log(us);
   });
 });
 
-server.listen(PORT, () => console.log(`runnig on port ${PORT}`));
+
